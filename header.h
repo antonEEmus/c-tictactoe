@@ -70,11 +70,12 @@ void WriteScreenToConsole(char screen[MAX_H][MAX_W], int width, int height) {
   }
 }
 
-void SleepMs(uint64_t ms) {
-  usleep(ms * 1000);
-}
 void DeInitConsole() {
   tcsetattr(STDIN_FILENO, TCSANOW, &tNormal);
+}
+
+void SleepMs(uint64_t ms) {
+  usleep(ms * 1000);
 }
 
 #endif

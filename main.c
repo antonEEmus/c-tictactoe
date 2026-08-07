@@ -62,7 +62,7 @@ int main() {
     }
   }
 
-  printf("----- Game Over! -------\n");
+  printf("----- Game Over! ------\n");
   DeInitConsole();
   return 0;
 }

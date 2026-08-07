@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/clang-format-21.x.json
 ---
 BasedOnStyle: LLVM
-IndentWidth: 4
+IndentWidth: 2
 ---
 Language: C
 DerivePointerAlignment: false

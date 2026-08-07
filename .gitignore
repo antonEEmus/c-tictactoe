@@ -1,1 +1,3 @@
-prod/*
+prod/**
+.idea
+.idea/**

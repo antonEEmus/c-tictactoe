@@ -4,31 +4,48 @@
 #include <stdlib.h>
 #include <string.h>
 
-const int screenWidth = 20;
-const int screenHeight = 16;
-const int screenSize = screenHeight * screenHeight;
+static constexpr int screenWidth = 21;
+static constexpr int screenHeight = 15;
+static constexpr int screenSize = screenWidth * screenHeight;
+
+static constexpr char MAP[screenSize] =
+  "#####################"
+  "#                   #"
+  "#                   #"
+  "#                   #"
+  "#                   #"
+  "#       |   |       #"
+  "#    ---+---+---    #"
+  "#       |   |       #"
+  "#    ---+---+---    #"
+  "#       |   |       #"
+  "#                   #"
+  "#                   #"
+  "#                   #"
+  "#                   #"
+  "#####################";
 
 int main() {
   char screen[MAX_H][MAX_W];
   for (int y = 0; y < screenHeight; y++) {
     for (int x = 0; x < screenWidth; x++) {
-      screen[y][x] = ' ';
+      screen[y][x] = MAP[y * screenWidth + x];
     }
   }
 
-  int count = 0;
-  size_t textSize = 12;
+  int count = 990;
+  int textSize = 4;
   char text[textSize];
   int textY = screenHeight / 2;
   int textX = screenWidth / 2;
-  CreateConsole();
+  InitConsole();
   WriteScreenToConsole(screen, screenWidth, screenHeight);
   while (1) {
-    _itoa_s(count, text, textSize, 10);
-    size_t textLen = strlen(text);
+    snprintf(text, textSize, "%d", count);
+    int textLen = (int) strlen(text);
 
     textX = screenWidth / 2 - textLen / 2;
-    for (int x = 0; x < screenWidth; x++) {
+    for (int x = screenWidth / 2 - textSize / 2; x < textSize; x++) {
       screen[textY][x] = ' ';
     }
     for (int i = 0, x = textX; i < textLen; i++) {
@@ -39,8 +56,13 @@ int main() {
     WriteScreenToConsole(screen, screenWidth, screenHeight);
 
     count++;
-    Sleep(1000);
+    SleepMs(1000);
+    if (count > 999) {
+      break;
+    }
   }
 
+  printf("----- Game Over! -------\n");
+  DeInitConsole();
   return 0;
 }

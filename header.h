@@ -2,8 +2,8 @@
 #ifdef _WIN32
 #include <windows.h>
 #else
-#include <unistd.h>
 #include <termios.h>
+#include <unistd.h>
 #endif
 
 #include <stdint.h>
@@ -23,7 +23,7 @@ static HANDLE hConsole;
 static DWORD bytesWritten = 0;
 static COORD writeCoord = {0, 0};
 
-void CreateConsole() {
+void InitConsole() {
   hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL,
                                        CONSOLE_TEXTMODE_BUFFER, NULL);
   SetConsoleActiveScreenBuffer(hConsole);
@@ -36,9 +36,7 @@ void WriteScreenToConsole(char screen[MAX_H][MAX_W], int width, int height) {
   }
 }
 
-void SleepMs(uint64_t ms) {
-  Sleep(ms);
-}
+void SleepMs(uint64_t ms) { Sleep(ms); }
 
 void DeInitConsole() {
   // Nothing here yet...
@@ -49,9 +47,7 @@ void DeInitConsole() {
 static struct termios tNormal;
 static struct termios tNoEcho;
 
-void moveCursor(int x, int y) {
-  printf("\033[%d;%dH", y, x);
-}
+void moveCursor(int x, int y) { printf("\033[%d;%dH", y, x); }
 
 void InitConsole() {
   // Hiding input chars
@@ -70,12 +66,8 @@ void WriteScreenToConsole(char screen[MAX_H][MAX_W], int width, int height) {
   }
 }
 
-void DeInitConsole() {
-  tcsetattr(STDIN_FILENO, TCSANOW, &tNormal);
-}
+void DeInitConsole() { tcsetattr(STDIN_FILENO, TCSANOW, &tNormal); }
 
-void SleepMs(uint64_t ms) {
-  usleep(ms * 1000);
-}
+void SleepMs(uint64_t ms) { usleep(ms * 1000); }
 
 #endif

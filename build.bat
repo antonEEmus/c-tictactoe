@@ -1,3 +1,3 @@
 @echo off
 
-gcc main.c -o prod/tictactoe
+gcc .\main.c -o prod\tictactoe
